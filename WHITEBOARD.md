@@ -1,8 +1,6 @@
 # Whiteboard slides — author and developer guide
 
-Chapter 1 deck: [index.html](index.html)  
-Developer setup: [DECK.md](DECK.md)  
-Agent conventions: [presentations/AGENTS.md](../AGENTS.md)
+Slides live in [content/slides.html](content/slides.html). Component styles: [css/deck.css](css/deck.css).
 
 This guide covers **facilitator board slides** (Excalidraw under the CRT “screen”) and how they differ from **slide annotations** (press **D**, ink above the glass).
 
@@ -72,7 +70,7 @@ In [js/cp2077-config.js](js/cp2077-config.js):
 ```js
 whiteboard: {
   mount: 'overlay',      // 'overlay' | 'inSlide' (do not use inSlide in prod)
-  deckId: 'chapter-01',  // sessionStorage prefix
+  deckId: 'example-deck',  // sessionStorage prefix
   disableBarrel: true,   // fx-whiteboard-active: barrel filter off on deck shell
   debug: false,          // true or ?whiteboardDebug=1 for console diagnostics
 },
@@ -81,7 +79,7 @@ whiteboard: {
 | Key | Default | Meaning |
 |-----|---------|---------|
 | `mount` | `'overlay'` | Use transform-free overlay host |
-| `deckId` | `'chapter-01'` | Prefix for `cp2077-whiteboard:{deckId}:{boardId}` |
+| `deckId` | `'example-deck'` | Prefix for `cp2077-whiteboard:{deckId}:{boardId}` |
 | `disableBarrel` | `true` | Disables barrel warp on `#cp2077-deck-shell` while board active |
 | `debug` | `false` | Enables `cp2077WhiteboardDebug` logging and Ctrl+Shift+D dump |
 
@@ -120,7 +118,7 @@ Relative asset paths break offline font loading.
 | `js/whiteboard-bridge.js` | Reveal integration + overlay sync |
 | `js/whiteboard-debug.js` | Optional diagnostics |
 | `css/cp2077-whiteboard-layer.css` | Overlay host styles |
-| `css/chapter-01.css` | `.whiteboard-slide` flex layout |
+| `css/deck.css` | `.whiteboard-slide` flex layout |
 | `dist/whiteboard/whiteboard.js` | Built IIFE bundle |
 | `dist/whiteboard/assets/` | Excalidraw fonts (copied on build) |
 
@@ -133,7 +131,7 @@ Place a whiteboard slide inside a **vertical stack** (nested `<section>` under a
 ```html
 <section
   class="whiteboard-slide"
-  data-whiteboard-id="ch1-my-unique-board-id"
+  data-whiteboard-id="my-unique-board-id"
 >
   <div class="whiteboard-header">
     <span class="activity-badge">Facilitator Board</span>
@@ -167,12 +165,12 @@ Place a whiteboard slide inside a **vertical stack** (nested `<section>` under a
 | `data-whiteboard-src="assets/whiteboards/starter.excalidraw"` | Starter scene when sessionStorage is empty |
 | `class="whiteboard-slide--focus"` | Hides on-slide hint; slightly more canvas area |
 
-Chapter 1 production board:
+Example board marker:
 
 ```html
 <section
   class="whiteboard-slide whiteboard-slide--focus"
-  data-whiteboard-id="ch1-slide-03-board"
+  data-whiteboard-id="ex-board-1"
 >
   ...
 </section>
@@ -182,7 +180,7 @@ Chapter 1 production board:
 
 ## Layout and viewport
 
-Whiteboard slides use flexbox in [css/chapter-01.css](css/chapter-01.css):
+Whiteboard slides use flexbox in [css/deck.css](css/deck.css):
 
 - `.whiteboard-slide.present` → `height: 100%` (overrides Reveal `center: true` `min-height: 0` on vertical slides).
 - `.whiteboard-header` → shrink-wrap at top.
@@ -190,7 +188,7 @@ Whiteboard slides use flexbox in [css/chapter-01.css](css/chapter-01.css):
 
 When `fx.layers.hud` is on, slide padding uses `--cp-hud-safe` so content stays inside corner brackets.
 
-**Do not** set `position: relative` on `<section>` — Reveal layout breaks on other slides ([presentations/AGENTS.md](../AGENTS.md)).
+**Do not** set `position: relative` on `<section>` — Reveal layout breaks on other slides.
 
 ---
 
@@ -211,13 +209,7 @@ Bounds sync runs on: `slidetransitionend`, `resize`, `ResizeObserver` on placeho
 
 ## Slide numbering vs navigation
 
-Reveal uses `slideNumber: 'c/t'`. Chapter 1 opening board:
-
-- **Horizontal:** Slide 3 — “What Comes to Mind…”
-- **Vertical:** **↓** twice → Facilitator Board
-- **Counter:** Often **6/t** (not “slide 3”)
-
-Facilitator path: Slide 3 → **↓** → **↓** → board.
+Reveal uses `slideNumber: 'c/t'`. Counted slides include vertical stacks, so the on-slide counter may not match the horizontal index.
 
 ---
 
@@ -225,8 +217,8 @@ Facilitator path: Slide 3 → **↓** → **↓** → board.
 
 | Action | Behavior |
 |--------|----------|
-| Autosave (standalone) | `sessionStorage` key `cp2077-whiteboard:chapter-01:{data-whiteboard-id}` (debounced) |
-| Autosave (platform live session) | `sessionStorage` key `cp2077-whiteboard:{session_id}:chapter-01:{data-whiteboard-id}` — isolated per platform session; cleared when the session ends |
+| Autosave (standalone) | `sessionStorage` key `cp2077-whiteboard:example-deck:{data-whiteboard-id}` (debounced) |
+| Autosave (platform live session) | `sessionStorage` key `cp2077-whiteboard:{session_id}:example-deck:{data-whiteboard-id}` — isolated per platform session; cleared when the session ends |
 | Export | **Ctrl+Shift+S** on board slide → `{data-whiteboard-id}.excalidraw` |
 | Import | **Ctrl+Shift+O** → `.excalidraw` or JSON |
 | Next session | Ship `data-whiteboard-src` template or import exported file |
@@ -305,7 +297,6 @@ Asserts:
 
 ## Related docs
 
-- [DECK.md](DECK.md) — quick start and CRT stack
-- [VERSIONING.md](VERSIONING.md) — deck semver and release checklist
-- [CHANGELOG.md](CHANGELOG.md) — deck change history
-- [planning/chapter_01/chapter_01_recommendations.md](../../planning/chapter_01/chapter_01_recommendations.md) — facilitation pacing
+- [README.md](README.md) — clone, init, package, upload
+- [CHANGELOG.md](CHANGELOG.md) — engine change history
+- [COPYRIGHT.md](COPYRIGHT.md) — third-party licenses
