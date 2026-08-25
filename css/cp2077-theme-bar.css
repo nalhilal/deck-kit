@@ -1,0 +1,58 @@
+/**
+ * Fixed theme switcher bar (theme_example.html and optional preview)
+ */
+
+.cp2077-theme-bar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 9999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	background: rgba(0, 0, 0, 0.92);
+	border-bottom: 1px solid rgba(37, 225, 237, 0.35);
+	font-family: 'Rajdhani', sans-serif;
+}
+
+.cp2077-theme-bar span {
+	color: #8a8a9a;
+	font-size: 0.85rem;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	margin-right: 0.5rem;
+}
+
+.cp2077-theme-bar button {
+	font-family: inherit;
+	font-size: 0.9rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	padding: 0.35em 1em;
+	border-radius: 4px;
+	border: 1px solid rgba(37, 225, 237, 0.4);
+	background: transparent;
+	color: #25e1ed;
+	cursor: pointer;
+}
+
+.cp2077-theme-bar button:hover {
+	background: rgba(37, 225, 237, 0.12);
+}
+
+.cp2077-theme-bar button.is-active {
+	background: #ed1e79;
+	border-color: #ed1e79;
+	color: #0a0a0c;
+}
+
+/* Offset viewport (body) so Reveal layout uses remaining height — not margin on .reveal */
+body.has-cp2077-theme-bar.reveal-viewport {
+	box-sizing: border-box;
+	padding-top: 2.5rem;
+}

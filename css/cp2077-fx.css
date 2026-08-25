@@ -1,0 +1,418 @@
+/**
+ * Cyberpunk 2077 — CRT overlay stack + barrel distortion + content FX
+ * Toggle layers via html.fx-crt-* / html.fx-* (cp2077-fx.js + cp2077-config.js)
+ */
+
+:root {
+	--cp-hud-gap: 0.35em;
+	--cp-hud-bracket: 28px;
+	--cp-hud-safe: calc(var(--cp-hud-gap) + var(--cp-hud-bracket));
+	--cp-crt-intensity: 1;
+	--cp-barrel-scale: 10;
+	--cp-crt-scanline-opacity: 0.55;
+	--cp-crt-grille-opacity: 0.45;
+	--cp-crt-noise-opacity: 0.22;
+	--cp-crt-vignette-opacity: 1;
+	--cp-crt-bezel-opacity: 1;
+	--cp-crt-glow-opacity: 0.85;
+	--cp-crt-beam-opacity: 0.5;
+}
+
+/* Reveal-safe warp shell (filter here, not on .reveal transforms) */
+#cp2077-deck-shell {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	border-radius: 3% / 4%;
+	box-shadow:
+		inset 0 0 48px rgba(0, 0, 0, 0.35),
+		inset 0 0 0 1px rgba(37, 225, 237, 0.08);
+}
+
+#cp2077-deck-shell > .reveal {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+html.fx-crt-barrel #cp2077-deck-shell {
+	filter: url(#cp2077-barrel);
+	transform: translateZ(0);
+}
+
+/* Excalidraw: barrel displacement warps pixels, not pointer coords — disable on board slides */
+html.fx-whiteboard-active.fx-crt-barrel #cp2077-deck-shell {
+	filter: none;
+	transform: none;
+}
+
+/* --- CRT overlay container (above slides, below FX bars) --- */
+#cp2077-crt-overlay {
+	display: none;
+	position: fixed;
+	inset: 0;
+	z-index: 50;
+	pointer-events: none;
+	overflow: hidden;
+	border-radius: 3% / 4%;
+}
+
+html.fx-crt-active #cp2077-crt-overlay {
+	display: block;
+}
+
+#cp2077-crt-overlay > div {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.15s ease;
+}
+
+/* L1 Scanlines — visible on dark themes (light + dark lines, blend) */
+html.fx-crt-scanlines #cp2077-crt-overlay .cp2077-crt__scanlines {
+	opacity: calc(var(--cp-crt-scanline-opacity) * var(--cp-crt-intensity));
+	mix-blend-mode: overlay;
+	background:
+		repeating-linear-gradient(
+			to bottom,
+			transparent 0px,
+			transparent 3px,
+			rgba(0, 0, 0, 0.45) 3px,
+			rgba(0, 0, 0, 0.45) 4px,
+			transparent 4px,
+			transparent 6px
+		),
+		repeating-linear-gradient(
+			to bottom,
+			transparent 0px,
+			transparent 3px,
+			rgba(255, 255, 255, 0.07) 3px,
+			rgba(255, 255, 255, 0.07) 4px,
+			transparent 4px,
+			transparent 6px
+		);
+}
+
+/* L2 Aperture grille — vertical RGB-ish mesh */
+html.fx-crt-grille #cp2077-crt-overlay .cp2077-crt__grille {
+	opacity: calc(var(--cp-crt-grille-opacity) * var(--cp-crt-intensity));
+	mix-blend-mode: soft-light;
+	background:
+		repeating-linear-gradient(
+			to right,
+			transparent 0px,
+			transparent 2px,
+			rgba(255, 80, 120, 0.12) 2px,
+			rgba(255, 80, 120, 0.12) 3px
+		),
+		repeating-linear-gradient(
+			to right,
+			transparent 1px,
+			transparent 3px,
+			rgba(37, 225, 237, 0.1) 3px,
+			rgba(37, 225, 237, 0.1) 4px
+		),
+		repeating-linear-gradient(
+			to right,
+			transparent 0px,
+			transparent 4px,
+			rgba(255, 255, 255, 0.06) 4px,
+			rgba(255, 255, 255, 0.06) 5px
+		);
+}
+
+/* L3 Vignette — dark + colored edge tint */
+html.fx-crt-vignette #cp2077-crt-overlay .cp2077-crt__vignette {
+	opacity: calc(var(--cp-crt-vignette-opacity) * var(--cp-crt-intensity));
+	background:
+		radial-gradient(
+			ellipse 88% 78% at 50% 50%,
+			transparent 30%,
+			rgba(0, 0, 0, 0.55) 72%,
+			rgba(0, 0, 0, 0.82) 100%
+		),
+		radial-gradient(
+			ellipse 95% 85% at 50% 50%,
+			transparent 55%,
+			rgba(37, 225, 237, 0.12) 85%,
+			rgba(237, 30, 121, 0.15) 100%
+		);
+}
+
+/* L4 Bezel mask */
+html.fx-crt-bezel-mask #cp2077-crt-overlay .cp2077-crt__mask {
+	opacity: calc(var(--cp-crt-bezel-opacity) * var(--cp-crt-intensity));
+	box-shadow:
+		inset 0 0 100px rgba(0, 0, 0, 0.75),
+		inset 0 0 32px rgba(37, 225, 237, 0.15);
+	border: 1px solid rgba(37, 225, 237, 0.12);
+	border-radius: 3% / 4%;
+}
+
+/* L5 Phosphor glow */
+html.fx-crt-phosphor-glow #cp2077-crt-overlay .cp2077-crt__glow {
+	opacity: calc(var(--cp-crt-glow-opacity) * var(--cp-crt-intensity));
+	box-shadow:
+		inset 0 0 48px rgba(37, 225, 237, 0.14),
+		inset 0 0 140px rgba(237, 30, 121, 0.1);
+}
+
+/* L6 Noise */
+@keyframes cp2077-noise-shift {
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: 200px 180px;
+	}
+}
+
+html.fx-crt-noise #cp2077-crt-overlay .cp2077-crt__noise {
+	opacity: calc(var(--cp-crt-noise-opacity) * var(--cp-crt-intensity));
+	mix-blend-mode: soft-light;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+	background-size: 180px 180px;
+	animation: cp2077-noise-shift 8s linear infinite;
+}
+
+/* L7 Flicker (whole overlay stack) */
+@keyframes cp2077-crt-flicker {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.88;
+	}
+}
+
+html.fx-crt-flicker #cp2077-crt-overlay {
+	animation: cp2077-crt-flicker 0.12s steps(2) infinite;
+}
+
+html.fx-crt-flicker #cp2077-crt-overlay .cp2077-crt__flicker {
+	opacity: 0;
+}
+
+/* L8 Moving scan beam */
+@keyframes cp2077-beam-sweep {
+	0% {
+		transform: translateY(-120%);
+	}
+	100% {
+		transform: translateY(120vh);
+	}
+}
+
+html.fx-crt-moving-beam #cp2077-crt-overlay .cp2077-crt__beam {
+	opacity: calc(var(--cp-crt-beam-opacity) * var(--cp-crt-intensity));
+	background: linear-gradient(
+		to bottom,
+		transparent 0%,
+		rgba(37, 225, 237, 0.08) 42%,
+		rgba(255, 255, 255, 0.28) 50%,
+		rgba(37, 225, 237, 0.08) 58%,
+		transparent 100%
+	);
+	height: 16%;
+	top: 0;
+	bottom: auto;
+	animation: cp2077-beam-sweep 7s linear infinite;
+}
+
+/* Calibration patch (preview slide) */
+.reveal .crt-calibration-slide {
+	text-align: center;
+}
+
+.reveal .crt-calibration-patch {
+	display: block;
+	width: min(70%, 520px);
+	height: 2.8em;
+	margin: 0.75em auto 1em;
+	background: #808080;
+	border: 2px solid var(--cp-accent-2, #25e1ed);
+	box-shadow: 0 0 20px rgba(37, 225, 237, 0.25);
+}
+
+.reveal .crt-calibration-hint {
+	font-size: 0.5em;
+	color: var(--cp-muted, #8a8a9a);
+	max-width: 32em;
+	margin: 0.5em auto;
+	line-height: 1.35;
+}
+
+/* --- Content FX --- */
+@keyframes cp2077-glitch {
+	0%,
+	88%,
+	100% {
+		transform: translate(0);
+		text-shadow:
+			0 0 28px rgba(237, 30, 121, 0.45),
+			-2px 0 #25e1ed,
+			2px 0 #ed1e79;
+		clip-path: inset(0 0 0 0);
+	}
+	89% {
+		transform: translate(-3px, 1px);
+		text-shadow:
+			3px 0 #25e1ed,
+			-3px 0 #ff4a57,
+			0 0 28px rgba(237, 30, 121, 0.6);
+		clip-path: inset(12% 0 58% 0);
+	}
+	90% {
+		transform: translate(2px, -1px);
+		clip-path: inset(48% 0 18% 0);
+	}
+	91% {
+		transform: translate(0);
+		clip-path: inset(0 0 0 0);
+	}
+}
+
+.fx-glitch[data-cp2077-glitch-targets~='h1'] .reveal h1,
+.fx-glitch[data-cp2077-glitch-targets~='h1'] .reveal .title-slide h1 {
+	animation: cp2077-glitch 5s infinite;
+}
+
+.fx-glitch[data-cp2077-glitch-targets~='h2'] .reveal h2 {
+	animation: cp2077-glitch 5s infinite;
+}
+
+.fx-glitch[data-cp2077-glitch-targets~='h3'] .reveal h3 {
+	animation: cp2077-glitch 5s infinite;
+}
+
+.fx-glitch[data-cp2077-glitch-targets~='h4'] .reveal h4 {
+	animation: cp2077-glitch 5s infinite;
+}
+
+.fx-glitch[data-cp2077-glitch-targets~='h5'] .reveal h5 {
+	animation: cp2077-glitch 5s infinite;
+}
+
+.fx-glitch[data-cp2077-glitch-targets~='h6'] .reveal h6 {
+	animation: cp2077-glitch 5s infinite;
+}
+
+.fx-chromatic .reveal h2,
+.fx-chromatic .reveal .section-badge,
+.fx-chromatic .reveal .activity-badge {
+	text-shadow:
+		1px 0 rgba(37, 225, 237, 0.85),
+		-1px 0 rgba(237, 30, 121, 0.75),
+		0 0 12px rgba(37, 225, 237, 0.25);
+}
+
+/* Leaf present slide only (excludes vertical stack wrapper when a child is active) */
+.fx-hud .reveal .slides section.present:not(:has(> section.present)) {
+	box-sizing: border-box;
+	padding: var(--cp-hud-safe);
+}
+
+.fx-hud .reveal .slides section.present:not(:has(> section.present))::before,
+.fx-hud .reveal .slides section.present:not(:has(> section.present))::after {
+	content: '';
+	position: absolute;
+	left: var(--cp-hud-gap);
+	right: var(--cp-hud-gap);
+	pointer-events: none;
+	z-index: 2;
+	border: none;
+	opacity: 0.65;
+}
+
+.fx-hud .reveal .slides section.present:not(:has(> section.present))::before {
+	top: var(--cp-hud-gap);
+	height: var(--cp-hud-bracket);
+	background:
+		linear-gradient(var(--cp-accent-2, #25e1ed), var(--cp-accent-2, #25e1ed)) top left /
+			var(--cp-hud-bracket) 2px no-repeat,
+		linear-gradient(var(--cp-accent-2, #25e1ed), var(--cp-accent-2, #25e1ed)) top left / 2px
+			var(--cp-hud-bracket) no-repeat,
+		linear-gradient(var(--cp-accent-2, #25e1ed), var(--cp-accent-2, #25e1ed)) top right /
+			var(--cp-hud-bracket) 2px no-repeat,
+		linear-gradient(var(--cp-accent-2, #25e1ed), var(--cp-accent-2, #25e1ed)) top right / 2px
+			var(--cp-hud-bracket) no-repeat;
+}
+
+.fx-hud .reveal .slides section.present:not(:has(> section.present))::after {
+	bottom: var(--cp-hud-gap);
+	height: var(--cp-hud-bracket);
+	background:
+		linear-gradient(var(--cp-accent-2, #25e1ed), var(--cp-accent-2, #25e1ed)) bottom left /
+			var(--cp-hud-bracket) 2px no-repeat,
+		linear-gradient(var(--cp-accent-2, #25e1ed), var(--cp-accent-2, #25e1ed)) bottom left / 2px
+			var(--cp-hud-bracket) no-repeat,
+		linear-gradient(var(--cp-accent-2, #25e1ed), var(--cp-accent-2, #25e1ed)) bottom right /
+			var(--cp-hud-bracket) 2px no-repeat,
+		linear-gradient(var(--cp-accent-2, #25e1ed), var(--cp-accent-2, #25e1ed)) bottom right / 2px
+			var(--cp-hud-bracket) no-repeat;
+}
+
+@keyframes cp2077-blink {
+	0%,
+	49% {
+		opacity: 1;
+	}
+	50%,
+	100% {
+		opacity: 0;
+	}
+}
+
+.fx-cursor .reveal .title-slide .subtitle::after,
+.fx-cursor .reveal .fx-demo-subtitle::after {
+	content: '_';
+	margin-left: 0.05em;
+	color: var(--cp-accent-2, #25e1ed);
+	animation: cp2077-blink 1s step-end infinite;
+}
+
+@keyframes cp2077-pulse-border {
+	0%,
+	100% {
+		box-shadow:
+			0 0 8px rgba(37, 225, 237, 0.2),
+			inset 0 0 0 1px rgba(37, 225, 237, 0.35);
+	}
+	50% {
+		box-shadow:
+			0 0 22px rgba(237, 30, 121, 0.35),
+			inset 0 0 0 1px rgba(237, 30, 121, 0.5);
+	}
+}
+
+.fx-pulse-border .reveal .concept-card,
+.fx-pulse-border .reveal .fx-demo-card {
+	animation: cp2077-pulse-border 2.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html.fx-crt-flicker #cp2077-crt-overlay,
+	html.fx-crt-moving-beam .cp2077-crt__beam,
+	html.fx-crt-noise .cp2077-crt__noise,
+	.fx-glitch[data-cp2077-glitch-targets~='h1'] .reveal h1,
+	.fx-glitch[data-cp2077-glitch-targets~='h1'] .reveal .title-slide h1,
+	.fx-glitch[data-cp2077-glitch-targets~='h2'] .reveal h2,
+	.fx-glitch[data-cp2077-glitch-targets~='h3'] .reveal h3,
+	.fx-glitch[data-cp2077-glitch-targets~='h4'] .reveal h4,
+	.fx-glitch[data-cp2077-glitch-targets~='h5'] .reveal h5,
+	.fx-glitch[data-cp2077-glitch-targets~='h6'] .reveal h6,
+	.fx-pulse-border .reveal .concept-card,
+	.fx-pulse-border .reveal .fx-demo-card,
+	.fx-cursor .reveal .title-slide .subtitle::after,
+	.fx-cursor .reveal .fx-demo-subtitle::after {
+		animation: none;
+	}
+
+	html.fx-crt-barrel #cp2077-deck-shell {
+		filter: none;
+	}
+}

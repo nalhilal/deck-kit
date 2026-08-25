@@ -1,0 +1,551 @@
+/* Learner Action Panel shell (Batch 07.1) — #platform-control-panel */
+
+#platform-control-panel-trigger {
+  position: fixed;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  left: calc(12px + env(safe-area-inset-left, 0px));
+  z-index: 10057;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(15, 23, 42, 0.92);
+  color: #f1f5f9;
+  font-family: var(
+    --cp-font-ui,
+    var(--r-main-font, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif)
+  );
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+html.platform-control-panel-visible #platform-control-panel-trigger {
+  display: inline-flex;
+}
+
+.platform-control-panel-trigger-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 2px solid rgba(148, 163, 184, 0.6);
+  box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.8);
+}
+
+#platform-control-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 10056;
+  display: none;
+  pointer-events: none;
+}
+
+html.platform-control-panel-visible #platform-control-panel {
+  display: block;
+}
+
+html.platform-control-panel-open #platform-control-panel {
+  pointer-events: auto;
+}
+
+.platform-control-panel-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgba(15, 23, 42, 0.55);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+html.platform-control-panel-open .platform-control-panel-backdrop {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.platform-control-panel-surface {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: rgba(15, 23, 42, 0.97);
+  color: #f1f5f9;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  font-family: var(
+    --cp-font-ui,
+    var(--r-main-font, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif)
+  );
+  font-size: 14px;
+  line-height: 1.45;
+  pointer-events: auto;
+  transform: translateY(100%);
+  transition: transform 0.25s ease;
+}
+
+html.platform-control-panel-open .platform-control-panel-surface {
+  transform: translateY(0);
+}
+
+html.platform-control-panel-mobile .platform-control-panel-surface {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: min(80vh, calc(100% - env(safe-area-inset-top, 0px) - 48px));
+  min-height: 60vh;
+  border-radius: 16px 16px 0 0;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html.platform-control-panel-desktop .platform-control-panel-surface {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: min(360px, 90vw);
+  max-width: 360px;
+  border-radius: 0 12px 12px 0;
+  transform: translateX(-100%);
+}
+
+html.platform-control-panel-desktop.platform-control-panel-open .platform-control-panel-surface {
+  transform: translateX(0);
+}
+
+.platform-control-panel-handle {
+  display: none;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0 4px;
+  touch-action: none;
+  cursor: grab;
+}
+
+html.platform-control-panel-mobile .platform-control-panel-handle {
+  display: flex;
+}
+
+.platform-control-panel-handle-bar {
+  display: block;
+  width: 40px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.55);
+}
+
+.platform-control-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px 8px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.platform-control-panel-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #f8fafc;
+}
+
+.platform-control-panel-close {
+  min-height: 36px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background: rgba(30, 41, 59, 0.95);
+  color: #f8fafc;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.platform-control-panel-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.platform-control-panel-tab {
+  flex: 1;
+  min-height: 40px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #cbd5e1;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.platform-control-panel-tab[aria-selected='true'] {
+  color: #f8fafc;
+  background: rgba(30, 41, 59, 0.95);
+  border-color: rgba(148, 163, 184, 0.35);
+}
+
+.platform-control-panel-panels {
+  flex: 1;
+  overflow: auto;
+  padding: 16px;
+}
+
+.platform-control-panel-panel {
+  margin: 0;
+  min-width: 0;
+  width: 100%;
+}
+
+.platform-control-panel-placeholder {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+html.platform-control-panel-open {
+  overflow: hidden;
+}
+
+/* Keep trigger above panel root when closed; panel open covers trigger area intentionally */
+html.platform-control-panel-open #platform-control-panel-trigger {
+  z-index: 10055;
+}
+
+/* Settings tab (Batch 07.3) */
+.platform-control-panel-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.platform-control-panel-settings-presets {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.platform-control-panel-settings-preset {
+  min-height: 36px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(30, 41, 59, 0.9);
+  color: #e2e8f0;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.platform-control-panel-settings-preset-label {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.platform-control-panel-settings-group {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.platform-control-panel-settings-group legend {
+  padding: 0;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #cbd5e1;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.platform-control-panel-settings-layer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: #e2e8f0;
+  cursor: pointer;
+}
+
+.platform-control-panel-settings-layer input[disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.platform-control-panel-settings-intensity {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: #e2e8f0;
+}
+
+.platform-control-panel-settings-intensity input[type='range'] {
+  width: 100%;
+}
+
+/* Settings sections (Batch 07.5) */
+.platform-control-panel-settings-section {
+  margin: 0;
+}
+
+.platform-control-panel-settings-section + .platform-control-panel-settings-section {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.platform-control-panel-settings-section-title {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.platform-control-panel-settings-section-desc {
+  margin: 0 0 12px;
+  font-size: 12px;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+/* Notes tab (Batch 07.5) */
+.platform-control-panel-notes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  width: 100%;
+}
+
+.platform-control-panel-notes-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.platform-control-panel-notes-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.platform-control-panel-notes-context {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #cbd5e1;
+  line-height: 1.35;
+}
+
+.platform-control-panel-notes-nav {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+
+.platform-control-panel-notes-nav-btn,
+.platform-control-panel-notes-current {
+  min-height: 28px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(30, 41, 59, 0.9);
+  color: #e2e8f0;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.platform-control-panel-notes-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.platform-control-panel-notes-current {
+  font-weight: 500;
+}
+
+.platform-control-panel-notes-mismatch {
+  margin: 0;
+  font-size: 12px;
+  color: #fde68a;
+  line-height: 1.35;
+}
+
+.platform-control-panel-notes-label {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.platform-control-panel-notes-input {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  min-height: 120px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(15, 23, 42, 0.85);
+  color: #f1f5f9;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.45;
+  resize: vertical;
+}
+
+.platform-control-panel-notes-input:focus {
+  outline: 2px solid rgba(96, 165, 250, 0.55);
+  outline-offset: 1px;
+}
+
+.platform-control-panel-notes-input:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.platform-control-panel-notes-save {
+  margin: 0;
+  min-height: 1.25em;
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+.platform-control-panel-notes-save--idle {
+  display: none;
+}
+
+.platform-control-panel-notes-save--saving {
+  color: #fde68a;
+}
+
+.platform-control-panel-notes-save--saved {
+  color: #86efac;
+}
+
+.platform-control-panel-notes-save--offline,
+.platform-control-panel-notes-save--error {
+  color: #fca5a5;
+}
+
+.platform-control-panel-notes-save--readonly {
+  color: #94a3b8;
+}
+
+/* Tools tab (Batch 07.6–07.7) */
+.platform-control-panel-tools {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.platform-control-panel-tools-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.platform-control-panel-tools-status {
+  margin: 0;
+  font-size: 13px;
+  color: #e2e8f0;
+}
+
+.platform-control-panel-tools-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #f1f5f9;
+  cursor: pointer;
+  user-select: none;
+}
+
+.platform-control-panel-tools-toggle input {
+  width: 16px;
+  height: 16px;
+  accent-color: #60a5fa;
+  cursor: pointer;
+}
+
+.platform-control-panel-tools-toggle input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.platform-control-panel-tools-toggle--primary {
+  font-weight: 600;
+}
+
+.platform-control-panel-tools-save {
+  margin: 0;
+  min-height: 1.25em;
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+.platform-control-panel-tools-save--idle {
+  display: none;
+}
+
+.platform-control-panel-tools-save--saving {
+  color: #fde68a;
+}
+
+.platform-control-panel-tools-save--saved {
+  color: #86efac;
+}
+
+.platform-control-panel-tools-save--offline,
+.platform-control-panel-tools-save--error {
+  color: #fca5a5;
+}
+
+.platform-control-panel-tools-privacy {
+  margin: 0;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.platform-control-panel-tools-hint {
+  margin: 0;
+  font-size: 12px;
+  color: #fde68a;
+  line-height: 1.4;
+}
+
+.platform-control-panel-tools-draw-hint {
+  margin: 0;
+  font-size: 12px;
+  color: #7dd3fc;
+  line-height: 1.4;
+}
+
+.platform-control-panel-tools-draw-hint[hidden] {
+  display: none;
+}

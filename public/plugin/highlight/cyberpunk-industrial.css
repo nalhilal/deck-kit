@@ -1,0 +1,85 @@
+/*
+ * Cyberpunk 2077 — highlight.js (industrial / yellow monitors)
+ */
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	padding: 0.5em;
+	background: #121214;
+	color: #ffeb0b;
+}
+
+.hljs-comment,
+.hljs-quote,
+.hljs-meta {
+	color: #8a8a9a;
+	font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-doctag,
+.hljs-section,
+.hljs-type,
+.hljs-name {
+	color: #25e1ed;
+	font-weight: bold;
+}
+
+.hljs-title,
+.hljs-function,
+.hljs-built_in,
+.hljs-builtin-name {
+	color: #e8f4f5;
+	font-weight: bold;
+}
+
+.hljs-string,
+.hljs-bullet,
+.hljs-subst,
+.hljs-addition,
+.hljs-regexp,
+.hljs-symbol,
+.hljs-template-tag,
+.hljs-template-variable {
+	color: #ed1e79;
+}
+
+.hljs-number,
+.hljs-attr,
+.hljs-variable,
+.hljs-params,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-link {
+	color: #25e1ed;
+}
+
+.hljs-attribute,
+.hljs-property,
+.hljs-tag {
+	color: #ed1e79;
+}
+
+.hljs-class .hljs-title,
+.hljs-title.class_ {
+	color: #38deab;
+	font-weight: bold;
+}
+
+.hljs-deletion,
+.hljs-formula {
+	color: #ff4a57;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+	color: #ed1e79;
+}
+
+.hljs-strong {
+	font-weight: bold;
+	color: #fdf901;
+}

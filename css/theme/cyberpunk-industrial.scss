@@ -1,0 +1,29 @@
+/**
+ * Cyberpunk 2077 — industrial monitors theme for reveal.js
+ */
+
+@use 'cyberpunk/tokens-industrial' as tokens;
+@use 'cyberpunk/theme' with (
+	$bg: tokens.$bg,
+	$fg: tokens.$fg,
+	$heading: tokens.$heading,
+	$accent: tokens.$accent,
+	$accent-2: tokens.$accent-2,
+	$muted: tokens.$muted,
+	$panel: tokens.$panel,
+	$panel-solid: tokens.$panel-solid,
+	$border: tokens.$border,
+	$success: tokens.$success,
+	$error: tokens.$error,
+	$emphasis: tokens.$emphasis,
+	$keyword: tokens.$keyword,
+	$h3-color: tokens.$h3-color,
+	$h4-color: tokens.$h4-color,
+	$inline-code: tokens.$inline-code,
+	$bold: tokens.$bold,
+	$func: tokens.$func,
+	$selection-bg: tokens.$selection-bg,
+	$link: tokens.$link,
+	$link-hover: tokens.$link-hover,
+	$list-marker: tokens.$list-marker
+);

@@ -1,0 +1,130 @@
+/**
+ * Effects toggle bar (theme_effects_preview.html)
+ */
+
+.cp2077-fx-bar {
+	position: fixed;
+	top: 2.5rem;
+	left: 0;
+	right: 0;
+	z-index: 9998;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 0.35rem 0.6rem;
+	padding: 0.45rem 0.75rem;
+	background: rgba(10, 10, 12, 0.94);
+	border-bottom: 1px solid rgba(237, 30, 121, 0.35);
+	font-family: 'Rajdhani', sans-serif;
+}
+
+.cp2077-fx-bar .fx-label {
+	color: #8a8a9a;
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	margin-right: 0.25rem;
+}
+
+.cp2077-fx-bar label {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25em;
+	font-size: 0.78rem;
+	font-weight: 600;
+	color: #25e1ed;
+	cursor: pointer;
+	user-select: none;
+}
+
+.cp2077-fx-bar label:hover {
+	color: #ffeb0b;
+}
+
+.cp2077-fx-bar input {
+	accent-color: #ed1e79;
+}
+
+.cp2077-fx-bar .fx-preset {
+	font-family: inherit;
+	font-size: 0.78rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	padding: 0.25em 0.65em;
+	border: 1px solid rgba(255, 235, 11, 0.5);
+	background: transparent;
+	color: #ffeb0b;
+	cursor: pointer;
+	margin-left: 0.35rem;
+}
+
+.cp2077-fx-bar .fx-preset:hover {
+	background: rgba(255, 235, 11, 0.12);
+}
+
+.cp2077-fx-bar .fx-preset.fx-preset--off {
+	border-color: rgba(138, 138, 154, 0.5);
+	color: #8a8a9a;
+}
+
+body.has-cp2077-fx-bars.reveal-viewport {
+	box-sizing: border-box;
+	padding-top: 5rem;
+}
+
+body.has-cp2077-fx-bars.has-cp2077-theme-bar.reveal-viewport {
+	padding-top: 5rem;
+}
+
+.cp2077-fx-bar .fx-barrel-strength {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35em;
+}
+
+.cp2077-fx-bar .fx-barrel-strength input[type='range'] {
+	width: 5em;
+	vertical-align: middle;
+}
+
+.cp2077-fx-bar .fx-preset-label {
+	color: #8a8a9a;
+	font-size: 0.75rem;
+	margin-left: 0.25rem;
+}
+
+.cp2077-fx-bar .fx-preset-label strong {
+	color: #ffeb0b;
+}
+
+.cp2077-fx-bar .fx-intensity {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35em;
+	font-size: 0.78rem;
+	font-weight: 600;
+	color: #8a8a9a;
+}
+
+.cp2077-fx-bar .fx-intensity input[type='range'] {
+	width: 4.5em;
+	accent-color: #25e1ed;
+}
+
+.cp2077-fx-status {
+	display: block;
+	width: 100%;
+	flex-basis: 100%;
+	text-align: center;
+	font-size: 0.7rem;
+	color: #8a8a9a;
+	margin: 0.15rem 0 0;
+	line-height: 1.35;
+}
+
+html[data-cp2077-reduced-motion='true'] .cp2077-fx-status {
+	color: #ffeb0b;
+}

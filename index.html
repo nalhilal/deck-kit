@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!-- MIT licensed engine — see LICENSE and COPYRIGHT.md -->
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
+		<title>Example Deck</title>
+		<link rel="stylesheet" href="dist/reset.css" />
+		<link rel="stylesheet" href="dist/reveal.css" />
+		<link
+			id="theme-link"
+			rel="stylesheet"
+			href="dist/theme/cyberpunk-corporate.css"
+		/>
+		<link
+			id="highlight-link"
+			rel="stylesheet"
+			href="dist/plugin/highlight/cyberpunk-corporate.css"
+		/>
+		<script src="js/deck-meta.js"></script>
+		<script src="js/cp2077-config.js"></script>
+		<script src="js/cp2077-theme.js"></script>
+		<link rel="stylesheet" href="css/cp2077-fx.css" />
+		<script src="js/cp2077-fx.js"></script>
+		<link rel="stylesheet" href="css/deck.css" />
+		<link rel="stylesheet" href="css/cp2077-whiteboard-layer.css" />
+		<link rel="stylesheet" href="css/cp2077-annotate.css" />
+		<link rel="stylesheet" href="dist/whiteboard/whiteboard.css" />
+		<link rel="stylesheet" href="plugin/tldreveal/tldreveal.css" />
+		<link rel="stylesheet" href="css/platform-bridge.css" />
+		<link rel="stylesheet" href="css/platform-control-panel.css" />
+	</head>
+	<body>
+		<div id="cp2077-deck-shell">
+			<div class="reveal" id="example-deck">
+				<div class="slides">
+
+				<!-- DECK_SLIDES -->
+
+			</div>
+			</div>
+		</div>
+
+		<script>
+			window.EXCALIDRAW_ASSET_PATH = new URL(
+				'dist/whiteboard/assets/',
+				window.location.href
+			).href;
+		</script>
+		<script src="dist/reveal.js"></script>
+		<script src="dist/plugin/notes.js"></script>
+		<script src="dist/plugin/highlight.js"></script>
+		<script src="dist/whiteboard/whiteboard.js"></script>
+		<script src="plugin/tldreveal/tldreveal.js"></script>
+		<script src="js/platform-ink-utils.js"></script>
+		<script src="js/tldreveal-adapter.js"></script>
+		<script src="js/annotate-layer.js"></script>
+		<script src="js/platform-dom-utils.js"></script>
+		<script src="js/platform-token-utils.js"></script>
+		<script src="js/platform-reveal-utils.js"></script>
+		<script src="js/platform-position-utils.js"></script>
+		<script src="js/platform-guest-storage.js"></script>
+		<script src="js/whiteboard-bridge.js"></script>
+		<script src="js/poll-definition-adapter.js"></script>
+		<script src="js/poll-replay-ui.js"></script>
+		<script src="js/platform-bridge-annotation-hold.js"></script>
+		<script src="js/platform-bridge-hints.js"></script>
+		<script src="js/platform-bridge-compat.js"></script>
+		<script src="js/platform-bridge-chrome.js"></script>
+		<script src="js/platform-bridge-install.js"></script>
+		<script src="js/platform-bridge-lobby.js"></script>
+		<script src="js/platform-bridge-progress.js"></script>
+		<script src="js/platform-bridge-connection.js"></script>
+		<script src="js/platform-bridge-deck-sync.js"></script>
+		<script src="js/platform-bridge-ceiling.js"></script>
+		<script src="js/platform-bridge-modules.js"></script>
+		<script src="js/platform-bridge-session.js"></script>
+		<script src="js/platform-bridge-polls-render.js"></script>
+		<script src="js/platform-bridge-polls-hydrate.js"></script>
+		<script src="js/platform-bridge-polls.js"></script>
+		<script src="js/platform-bridge-annotations.js"></script>
+		<script src="js/platform-bridge-whiteboard.js"></script>
+		<script src="js/platform-poll-speaker-bridge.js"></script>
+		<script src="js/platform-bridge.js"></script>
+		<script src="js/platform-fx-preferences.js"></script>
+		<script src="js/platform-slide-notes.js"></script>
+		<script src="js/platform-control-panel-settings.js"></script>
+		<script src="js/platform-control-panel-notes.js"></script>
+		<script src="js/platform-annotation-tools.js"></script>
+		<script src="js/platform-control-panel-tools.js"></script>
+		<script src="js/platform-control-panel.js"></script>
+		<script>
+			(function () {
+				var params = new URLSearchParams(window.location.search);
+				var platformSession =
+					params.has('session') && params.has('token');
+				Reveal.initialize({
+				hash: true,
+				slideNumber: 'c/t',
+				progress: true,
+				center: true,
+				transition: 'slide',
+				backgroundTransition: 'fade',
+				scrollActivationWidth: undefined,
+				plugins: [
+					RevealHighlight,
+					RevealNotes,
+					typeof Tldreveal !== 'undefined' ? Tldreveal.Tldreveal() : null,
+				].filter(Boolean),
+				tldreveal: {
+					isDarkMode: true,
+					useLocalStorage: !platformSession,
+				},
+			});
+			})();
+			Reveal.on('ready', function () {
+				var platformSessionParams = new URLSearchParams(window.location.search);
+				if (window.PlatformFxPreferences && typeof PlatformFxPreferences.init === 'function') {
+					PlatformFxPreferences.init({
+						getSessionId: function () {
+							return window.PlatformBridge && typeof PlatformBridge.getSessionId === 'function'
+								? PlatformBridge.getSessionId()
+								: platformSessionParams.get('session');
+						},
+						getApiBase: function () {
+							return window.PlatformBridge && typeof PlatformBridge.getApiBase === 'function'
+								? PlatformBridge.getApiBase()
+								: '/api/v1';
+						},
+						isAuthenticated: function () {
+							return window.PlatformBridge &&
+								typeof PlatformBridge.isAuthenticated === 'function'
+								? PlatformBridge.isAuthenticated()
+								: false;
+						},
+						isSessionDeck: function () {
+							return platformSessionParams.has('session') && platformSessionParams.has('token');
+						},
+					});
+				}
+				if (typeof cp2077FxInit === 'function') {
+					cp2077FxInit();
+				}
+				if (
+					window.PlatformFxPreferences &&
+					typeof PlatformFxPreferences.loadAndApply === 'function'
+				) {
+					PlatformFxPreferences.loadAndApply();
+				}
+				if (typeof cp2077AnnotateLayerInit === 'function') {
+					cp2077AnnotateLayerInit();
+				}
+				if (typeof cp2077WhiteboardBridgeInit === 'function') {
+					cp2077WhiteboardBridgeInit();
+				}
+				if (window.PlatformBridge && PlatformBridge.shouldActivate()) {
+					PlatformBridge.init();
+				}
+				if (window.PlatformControlPanel && typeof PlatformControlPanel.init === 'function') {
+					PlatformControlPanel.init();
+				}
+				if (window.PlatformAnnotationTools && typeof PlatformAnnotationTools.init === 'function') {
+					PlatformAnnotationTools.init({
+						slideKeyFromReveal: function () {
+							return window.PlatformBridge &&
+								typeof PlatformBridge.slideKeyFromReveal === 'function'
+								? PlatformBridge.slideKeyFromReveal()
+								: null;
+						},
+						isGuest: function () {
+							return window.PlatformBridge &&
+								typeof PlatformBridge.isGuest === 'function'
+								? PlatformBridge.isGuest()
+								: false;
+						},
+					});
+				}
+				Reveal.layout();
+			});
+		</script>
+	</body>
+</html>

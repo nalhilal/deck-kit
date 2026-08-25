@@ -1,0 +1,28 @@
+name: Pack
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  pack:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Install
+        run: npm install --legacy-peer-deps
+      - name: Identity tests
+        run: npm run test:deck-meta && npm run test:deck-content && npm run test:init-deck
+      - name: Build Reveal and present assets
+        run: npm run build && npm run build:present
+      - name: Package and verify
+        run: npm run package:platform

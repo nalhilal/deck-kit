@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
+		<title>Cyberpunk 2077 — FX preview</title>
+		<link rel="stylesheet" href="dist/reset.css" />
+		<link rel="stylesheet" href="dist/reveal.css" />
+		<link
+			id="theme-link"
+			rel="stylesheet"
+			href="dist/theme/cyberpunk-corporate.css"
+		/>
+		<link
+			id="highlight-link"
+			rel="stylesheet"
+			href="dist/plugin/highlight/cyberpunk-corporate.css"
+		/>
+		<script src="js/deck-meta.js"></script>
+		<script src="js/cp2077-config.js"></script>
+		<script src="js/cp2077-config-preview.js"></script>
+		<script src="js/cp2077-theme.js"></script>
+		<link rel="stylesheet" href="css/cp2077-theme-bar.css" />
+		<link rel="stylesheet" href="css/cp2077-fx-bar.css" />
+		<link rel="stylesheet" href="css/cp2077-fx.css" />
+		<link rel="stylesheet" href="css/chapter-01.css" />
+		<script src="js/cp2077-fx.js"></script>
+	</head>
+	<body class="has-cp2077-theme-bar has-cp2077-fx-bars">
+		<nav class="cp2077-theme-bar" aria-label="Theme">
+			<span>Theme</span>
+			<button type="button" data-cp2077-theme="corporate" onclick="cp2077SetTheme('corporate')">
+				Corporate
+			</button>
+			<button type="button" data-cp2077-theme="industrial" onclick="cp2077SetTheme('industrial')">
+				Industrial
+			</button>
+		</nav>
+
+		<nav class="cp2077-fx-bar" aria-label="Visual effects">
+			<span class="fx-label">CRT overlay</span>
+			<label><input type="checkbox" data-cp2077-layer="scanlines" onchange="cp2077SetLayer('scanlines', this.checked)" /> Scanlines</label>
+			<label><input type="checkbox" data-cp2077-layer="vignette" onchange="cp2077SetLayer('vignette', this.checked)" /> Vignette</label>
+			<label><input type="checkbox" data-cp2077-layer="grille" onchange="cp2077SetLayer('grille', this.checked)" /> Grille</label>
+			<label><input type="checkbox" data-cp2077-layer="bezelMask" onchange="cp2077SetLayer('bezelMask', this.checked)" /> Bezel</label>
+			<label><input type="checkbox" data-cp2077-layer="noise" onchange="cp2077SetLayer('noise', this.checked)" /> Noise</label>
+			<label><input type="checkbox" data-cp2077-layer="flicker" onchange="cp2077SetLayer('flicker', this.checked)" /> Flicker</label>
+			<label><input type="checkbox" data-cp2077-layer="movingBeam" onchange="cp2077SetLayer('movingBeam', this.checked)" /> Beam</label>
+			<label><input type="checkbox" data-cp2077-layer="phosphorGlow" onchange="cp2077SetLayer('phosphorGlow', this.checked)" /> Glow</label>
+			<span class="fx-label">Warp</span>
+			<label><input type="checkbox" data-cp2077-layer="barrel" onchange="cp2077SetLayer('barrel', this.checked)" /> Warp (barrel)</label>
+			<label class="fx-barrel-strength">
+				Strength
+				<input
+					type="range"
+					min="0"
+					max="40"
+					value="10"
+					id="cp2077-barrel-range"
+					oninput="cp2077SetBarrelStrength(this.value)"
+				/>
+			</label>
+			<label class="fx-intensity">
+				Intensity
+				<input
+					type="range"
+					min="0.25"
+					max="2"
+					step="0.05"
+					value="1"
+					id="cp2077-intensity-range"
+					oninput="cp2077SetCrtIntensity(this.value)"
+				/>
+			</label>
+			<span class="fx-label">Content</span>
+			<label><input type="checkbox" data-cp2077-layer="glitch" onchange="cp2077SetLayer('glitch', this.checked)" /> Glitch</label>
+			<label><input type="checkbox" data-cp2077-layer="chromatic" onchange="cp2077SetLayer('chromatic', this.checked)" /> Chromatic</label>
+			<label><input type="checkbox" data-cp2077-layer="hud" onchange="cp2077SetLayer('hud', this.checked)" /> HUD</label>
+			<label><input type="checkbox" data-cp2077-layer="cursor" onchange="cp2077SetLayer('cursor', this.checked)" /> Cursor</label>
+			<label><input type="checkbox" data-cp2077-layer="pulseBorder" onchange="cp2077SetLayer('pulseBorder', this.checked)" /> Pulse</label>
+			<button type="button" class="fx-preset" onclick="cp2077FxPreset('subtle')">Subtle</button>
+			<button type="button" class="fx-preset" onclick="cp2077FxPreset('fullCrt')">Full CRT</button>
+			<button type="button" class="fx-preset fx-preset--off" onclick="cp2077FxPreset('off')">Off</button>
+			<span class="fx-preset-label">Preset: <strong id="cp2077-fx-preset-label">off</strong></span>
+			<span class="cp2077-fx-status" id="cp2077-fx-status" aria-live="polite"></span>
+		</nav>
+
+		<div id="cp2077-deck-shell">
+			<div class="reveal">
+				<div class="slides">
+					<section class="title-slide">
+						<p class="section-badge">FX preview</p>
+						<h1>CRT lab</h1>
+						<p class="subtitle fx-demo-subtitle">Toggle one layer at a time</p>
+						<p class="tagline">Use slide 2 (calibration) for clear A/B tests</p>
+					</section>
+
+					<section class="crt-calibration-slide">
+						<h2>CRT calibration</h2>
+						<p class="text-sm">Gray patch + dark theme — best for seeing scanlines, grille, and noise</p>
+						<span class="crt-calibration-patch" aria-hidden="true"></span>
+						<p class="crt-calibration-hint">
+							Turn <strong>Off</strong>, enable one CRT overlay at a time. Warp bends corners on the
+							whole deck (use Strength slider). If warp/beam/flicker do nothing, check macOS Reduce Motion.
+						</p>
+					</section>
+
+					<section>
+						<h2>CRT stack</h2>
+						<div class="concept-card fx-demo-card" style="max-width: 90%; margin: 0 auto">
+							<p class="term">Overlay + warp</p>
+							<p class="definition">
+								Overlay layers sit above slides (fixed, blend modes). Warp applies SVG barrel filter on
+								<code>#cp2077-deck-shell</code>, not inside Reveal slide transforms.
+							</p>
+						</div>
+						<ul class="text-sm" style="max-width: 85%; margin: 0.75em auto; text-align: left">
+							<li><strong>Full CRT</strong> — all overlay layers + warp + content FX</li>
+							<li><strong>Subtle</strong> — scanlines, vignette, HUD; warp off</li>
+							<li><strong>index.html</strong> — production preset from <code>cp2077-config.js</code></li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Myth or Fact?</h2>
+						<ul class="quiz-list">
+							<li><span class="quiz-num">1.</span> <span class="fragment highlight-red">Myth</span></li>
+							<li><span class="quiz-num">2.</span> <span class="fragment highlight-green">Fact</span></li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Overrides</h2>
+						<p class="text-sm"><code>?fx=off</code> <code>?fx=subtle</code> <code>?fx=fullCrt</code></p>
+						<p class="text-xs">
+							<a href="index.html">Full deck</a> ·
+							<a href="theme_example.html">Theme colors</a>
+						</p>
+					</section>
+				</div>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="dist/plugin/highlight.js"></script>
+		<script>
+			Reveal.initialize({
+				hash: true,
+				plugins: [RevealHighlight],
+			});
+			Reveal.on('ready', function () {
+				cp2077FxInit();
+				var barrelRange = document.getElementById('cp2077-barrel-range');
+				if (barrelRange && window.CP2077_CONFIG) {
+					barrelRange.value = CP2077_CONFIG.fx.barrelStrength || 10;
+				}
+				Reveal.layout();
+			});
+		</script>
+	</body>
+</html>

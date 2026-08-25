@@ -1,0 +1,523 @@
+/**
+ * Deck kit — shared slide component styles (badges, cards, grids).
+ * Tokens: --cp-* from the Cyberpunk theme.
+ */
+/* Section dividers */
+.reveal .section-divider {
+	text-align: center;
+}
+
+.reveal .section-badge {
+	display: inline-block;
+	font-size: 0.45em;
+	font-family: var(--cp-font-ui);
+	font-weight: 600;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--cp-accent-2);
+	border: 1px solid var(--cp-border);
+	border-radius: 999px;
+	padding: 0.25em 1em;
+	margin-bottom: 0.75em;
+}
+
+.reveal .section-divider h2 {
+	margin-bottom: 0.5em;
+}
+
+.reveal .section-divider p {
+	font-size: 0.75em;
+	color: var(--cp-muted);
+	max-width: 28em;
+	margin: 0 auto;
+}
+
+/* Activity badges */
+.reveal .activity-badge {
+	display: inline-block;
+	font-size: 0.4em;
+	font-family: var(--cp-font-ui);
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--cp-on-accent);
+	background: linear-gradient(90deg, var(--cp-accent-2), var(--cp-success));
+	border-radius: 999px;
+	padding: 0.35em 1em;
+	margin-bottom: 0.75em;
+}
+
+/* Prompt blocks */
+.reveal .prompt-block {
+	font-size: 0.85em;
+	text-align: left;
+	max-width: 90%;
+	margin: 1em auto;
+	padding: 0.75em 1.25em;
+}
+
+/* Concept cards */
+.reveal .concept-card {
+	background: var(--cp-panel);
+	border: 1px solid color-mix(in srgb, var(--cp-heading) 35%, transparent);
+	border-radius: 8px;
+	padding: 0.75em 1.25em;
+	margin: 0.5em auto;
+	max-width: 85%;
+	text-align: left;
+	box-shadow: 0 0 24px color-mix(in srgb, var(--cp-heading) 12%, transparent);
+}
+
+.reveal .concept-card .term {
+	font-size: 0.5em;
+	font-family: var(--cp-font-ui);
+	font-weight: 600;
+	color: var(--cp-success);
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	margin-bottom: 0.25em;
+}
+
+.reveal .concept-card .definition {
+	font-size: 0.75em;
+	margin: 0;
+	line-height: 1.4;
+}
+
+/* Compare grid */
+.reveal .compare-grid {
+	display: flex;
+	gap: 1.5em;
+	justify-content: center;
+	align-items: stretch;
+	text-align: left;
+	font-size: 0.55em;
+}
+
+.reveal .compare-card {
+	flex: 1;
+	max-width: 14em;
+	padding: 0.75em 1em;
+	border-radius: 8px;
+	border: 1px solid var(--cp-border);
+	background: var(--cp-panel);
+}
+
+.reveal .compare-card.bad {
+	border-color: color-mix(in srgb, var(--cp-error) 45%, transparent);
+}
+
+.reveal .compare-card.good {
+	border-color: color-mix(in srgb, var(--cp-success) 45%, transparent);
+}
+
+.reveal .compare-card h4 {
+	margin: 0 0 0.5em;
+	font-size: 1.1em;
+}
+
+.reveal .compare-card ul {
+	margin: 0;
+	padding-left: 1.2em;
+}
+
+.reveal .compare-card li {
+	margin-bottom: 0.35em;
+}
+
+/* Flow diagram */
+.reveal .flow-diagram {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 0.25em;
+	font-size: 0.55em;
+	margin: 1em auto;
+}
+
+.reveal .flow-step {
+	background: var(--cp-panel);
+	border: 1px solid color-mix(in srgb, var(--cp-heading) 40%, transparent);
+	border-radius: 6px;
+	padding: 0.5em 0.85em;
+	color: var(--cp-accent);
+	font-family: var(--cp-font-ui);
+	font-weight: 600;
+}
+
+.reveal .flow-arrow {
+	color: var(--cp-accent-2);
+	font-size: 1.2em;
+}
+
+/* Term grid */
+.reveal .term-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 0.5em;
+	font-size: 0.5em;
+	max-width: 90%;
+	margin: 0.75em auto;
+}
+
+.reveal .term-chip {
+	background: var(--cp-panel);
+	border: 1px solid color-mix(in srgb, var(--cp-success) 35%, transparent);
+	border-radius: 6px;
+	padding: 0.5em 0.75em;
+	text-align: center;
+}
+
+/* Theme cards grid */
+.reveal .theme-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 0.4em;
+	font-size: 0.45em;
+	max-width: 95%;
+	margin: 0.75em auto;
+}
+
+.reveal .theme-card {
+	background: var(--cp-panel);
+	border: 1px solid var(--cp-border);
+	border-radius: 6px;
+	padding: 0.6em;
+	text-align: center;
+}
+
+/* Category grid */
+.reveal .category-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 0.4em;
+	font-size: 0.48em;
+	max-width: 90%;
+	margin: 0.75em auto;
+}
+
+.reveal .category-chip {
+	background: var(--cp-panel);
+	border: 1px solid color-mix(in srgb, var(--cp-emphasis) 35%, transparent);
+	border-radius: 6px;
+	padding: 0.5em;
+}
+
+/* Tables */
+.reveal .term-table {
+	font-size: 0.48em;
+	margin: 0.5em auto;
+	border-collapse: collapse;
+	width: 95%;
+}
+
+.reveal .term-table th,
+.reveal .term-table td {
+	border: 1px solid var(--cp-border);
+	padding: 0.4em 0.6em;
+	text-align: left;
+	vertical-align: top;
+}
+
+.reveal .term-table th {
+	background: var(--cp-panel);
+	color: var(--cp-success);
+}
+
+.reveal .term-table tr:nth-child(even) td {
+	background: color-mix(in srgb, var(--cp-panel-solid) 40%, transparent);
+}
+
+/* Myth/Fact quiz */
+.reveal .quiz-list {
+	text-align: left;
+	font-size: 0.65em;
+	max-width: 85%;
+	margin: 0 auto;
+	list-style: none;
+	padding: 0;
+}
+
+.reveal .quiz-list li {
+	padding: 0.35em 0;
+	border-bottom: 1px solid color-mix(in srgb, var(--cp-muted) 30%, transparent);
+}
+
+.reveal .quiz-list .quiz-num {
+	color: var(--cp-emphasis);
+	font-family: var(--cp-font-ui);
+	font-weight: 600;
+	margin-right: 0.5em;
+}
+
+.reveal .quiz-answer {
+	font-size: 0.85em;
+	font-family: var(--cp-font-ui);
+	font-weight: 600;
+	margin-left: 1.5em;
+}
+
+/* Takeaway list */
+.reveal .takeaway-list {
+	text-align: left;
+	font-size: 0.62em;
+	max-width: 85%;
+	margin: 0 auto;
+}
+
+.reveal .takeaway-list li {
+	margin-bottom: 0.4em;
+	padding-left: 0.25em;
+}
+
+/* Analogy mapping */
+.reveal .analogy-map {
+	text-align: left;
+	font-size: 0.58em;
+	max-width: 90%;
+	margin: 0 auto;
+}
+
+.reveal .analogy-map dt {
+	color: var(--cp-success);
+	font-family: var(--cp-font-ui);
+	font-weight: 600;
+	margin-top: 0.4em;
+}
+
+.reveal .analogy-map dd {
+	margin-left: 0;
+	margin-bottom: 0.25em;
+	color: var(--cp-emphasis);
+}
+
+/* Media chips */
+.reveal .media-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4em;
+	justify-content: center;
+	font-size: 0.48em;
+	max-width: 90%;
+	margin: 0.75em auto;
+}
+
+.reveal .media-chip {
+	background: color-mix(in srgb, var(--cp-heading) 15%, transparent);
+	border: 1px solid color-mix(in srgb, var(--cp-heading) 40%, transparent);
+	border-radius: 999px;
+	padding: 0.4em 0.9em;
+}
+
+/* Can / Cannot columns */
+.reveal .capability-col {
+	flex: 1;
+	max-width: 16em;
+	text-align: left;
+	font-size: 0.55em;
+	padding: 0.75em;
+	border-radius: 8px;
+}
+
+.reveal .capability-col.can {
+	background: color-mix(in srgb, var(--cp-success) 8%, transparent);
+	border: 1px solid color-mix(in srgb, var(--cp-success) 35%, transparent);
+}
+
+.reveal .capability-col.cannot {
+	background: color-mix(in srgb, var(--cp-muted) 15%, transparent);
+	border: 1px solid color-mix(in srgb, var(--cp-muted) 35%, transparent);
+}
+
+.reveal .capability-col h4 {
+	margin: 0 0 0.5em;
+}
+
+.reveal .capability-col ul {
+	margin: 0;
+	padding-left: 1.2em;
+}
+
+/* SVG diagrams */
+.reveal .diagram-svg {
+	max-width: 85%;
+	margin: 0.5em auto;
+}
+
+.reveal .diagram-svg text {
+	font-family: var(--cp-font-ui);
+}
+
+.reveal .umbrella-diagram text {
+	text-rendering: geometricPrecision;
+}
+
+.reveal .umbrella-diagram tspan {
+	text-anchor: middle;
+}
+
+/* Title slide */
+.reveal .title-slide h1 {
+	font-size: 2.2em;
+	line-height: 1.15;
+	margin: 0.35em 0 0.4em;
+}
+
+.reveal .title-slide .subtitle {
+	font-size: 0.65em;
+	color: var(--cp-muted);
+	margin-top: 0.5em;
+}
+
+.reveal .title-slide .presenter {
+	font-size: 0.5em;
+	color: var(--cp-accent-2);
+	margin-top: 1.5em;
+}
+
+.reveal .title-slide .tagline {
+	font-size: 0.45em;
+	color: var(--cp-emphasis);
+	font-style: italic;
+	margin-top: 0.75em;
+}
+
+/* Mapping table compact */
+.reveal .mapping-table {
+	font-size: 0.52em;
+	margin: 0.5em auto;
+}
+
+.reveal .mapping-table td:first-child {
+	color: var(--cp-success);
+	font-family: var(--cp-font-ui);
+	font-weight: 600;
+	white-space: nowrap;
+}
+
+/* Checklist */
+.reveal .checklist {
+	text-align: left;
+	font-size: 0.6em;
+	max-width: 80%;
+	margin: 0 auto;
+	columns: 2;
+	column-gap: 2em;
+}
+
+.reveal .checklist li {
+	break-inside: avoid;
+	margin-bottom: 0.35em;
+}
+
+/* Smaller text utility */
+.reveal .text-sm {
+	font-size: 0.75em;
+}
+
+.reveal .text-xs {
+	font-size: 0.55em;
+}
+
+/* HUD safe area — content width caps when corner FX is on (see cp2077-fx.css tokens) */
+html.fx-hud {
+	--cp-hud-content-max: min(90%, calc(100% - 2 * var(--cp-hud-safe)));
+}
+
+html.fx-hud .reveal .prompt-block,
+html.fx-hud .reveal .analogy-map,
+html.fx-hud .reveal .media-chips {
+	max-width: var(--cp-hud-content-max);
+}
+
+html.fx-hud .reveal .quiz-list,
+html.fx-hud .reveal .takeaway-list,
+html.fx-hud .reveal .concept-card,
+html.fx-hud .reveal .checklist {
+	max-width: min(85%, var(--cp-hud-content-max));
+}
+
+html.fx-hud .reveal .slides section.present:not(:has(> section.present)):has(.prompt-block) p.text-sm {
+	max-width: var(--cp-hud-content-max);
+	margin-inline: auto;
+	text-align: left;
+	overflow-wrap: anywhere;
+}
+
+html.fx-hud .reveal .quiz-list:has(li:nth-child(6)) {
+	font-size: 0.58em;
+	margin-top: 0.35em;
+}
+
+html.fx-hud .reveal .quiz-list:has(li:nth-child(6)) li {
+	padding: 0.25em 0;
+}
+
+/* Whiteboard slide — canvas inside deck shell (under CRT glass) */
+.reveal.center .slides section.whiteboard-slide.present,
+.reveal .slides > section.stack > section.whiteboard-slide.present {
+	height: 100% !important;
+	min-height: 100% !important;
+	box-sizing: border-box;
+	padding: var(--cp-hud-safe);
+	display: flex !important;
+	flex-direction: column;
+	align-items: stretch;
+	text-align: left;
+}
+
+.reveal .slides section.whiteboard-slide .whiteboard-header {
+	flex: 0 0 auto;
+}
+
+.reveal .slides section.whiteboard-slide .whiteboard-prompt {
+	margin: 0 0 0.35em;
+	max-width: var(--cp-hud-content-max, 92%);
+	font-size: 0.42em;
+	line-height: 1.35;
+}
+
+.reveal .slides section.whiteboard-slide .whiteboard-hint {
+	flex: 0 0 auto;
+	margin: 0.25em 0 0;
+	opacity: 0.65;
+	font-size: 0.32em;
+}
+
+.reveal .slides section.whiteboard-slide .whiteboard-root {
+	position: relative;
+	flex: 1 1 auto;
+	min-height: 0;
+	width: 100%;
+	margin: 0;
+	z-index: 3;
+}
+
+.reveal .slides section.whiteboard-slide .whiteboard-root--bundle-missing {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem;
+	text-align: center;
+	color: var(--cp-cyan, #25e1ed);
+	font-size: 0.75em;
+	line-height: 1.4;
+	visibility: visible !important;
+}
+
+.reveal .slides section.whiteboard-slide .cp2077-whiteboard-canvas {
+	border: none;
+	border-radius: 4px;
+	background: color-mix(in srgb, var(--cp-bg, #0a0a0c) 88%, transparent);
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cp-accent-2, #25e1ed) 35%, transparent);
+}
+
+/* Max canvas: hide on-slide hint (shortcuts stay in speaker notes) */
+.reveal .slides section.whiteboard-slide--focus .whiteboard-hint {
+	display: none;
+}
+
+.reveal .slides section.whiteboard-slide--focus .whiteboard-prompt {
+	margin-bottom: 0.2em;
+}

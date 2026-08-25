@@ -1,0 +1,175 @@
+/**
+ * Cyberpunk 2077 — shared Reveal theme (configure via @use ... with)
+ */
+
+@use 'sass:color';
+@use 'sass:meta';
+@use '../template/mixins' as mixins;
+
+$bg: #0a0a0c !default;
+$fg: #25e1ed !default;
+$heading: #ed1e79 !default;
+$accent: #ffeb0b !default;
+$accent-2: #25e1ed !default;
+$muted: #8a8a9a !default;
+$panel: rgba(0, 0, 0, 0.75) !default;
+$panel-solid: #121214 !default;
+$border: rgba(37, 225, 237, 0.35) !default;
+$success: #38deab !default;
+$error: #ff4a57 !default;
+$emphasis: #ed1e79 !default;
+$keyword: #ffeb0b !default;
+$h3-color: #ffeb0b !default;
+$h4-color: #25e1ed !default;
+$inline-code: #25e1ed !default;
+$bold: #ffeb0b !default;
+$func: #e8f4f5 !default;
+$selection-bg: rgba(237, 30, 121, 0.25) !default;
+$link: #25e1ed !default;
+$link-hover: #ed1e79 !default;
+$list-marker: #ed1e79 !default;
+
+$font-ui: 'Rajdhani', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+	Cantarell, sans-serif;
+$font-display: 'Orbitron', #{$font-ui};
+
+@use '../template/settings' with (
+	$background: $bg,
+	$background-color: $bg,
+	$main-font: $font-ui,
+	$main-font-size: 40px,
+	$main-color: $fg,
+	$code-font: $font-ui,
+	$heading-color: $heading,
+	$heading-font: $font-display,
+	$heading-font-weight: 700,
+	$heading-text-transform: none,
+	$heading-letter-spacing: 0.04em,
+	$heading1-size: 2.4em,
+	$heading2-size: 1.55em,
+	$heading3-size: 1.25em,
+	$heading4-size: 1em,
+	$link-color: $link,
+	$link-color-hover: $link-hover,
+	$selection-color: $func,
+	$selection-background-color: $selection-bg
+);
+
+@use '../template/theme';
+@use 'fonts';
+
+@include mixins.light-bg-text-color($bg);
+
+:root {
+	--cp-bg: #{$bg};
+	--cp-fg: #{$fg};
+	--cp-heading: #{$heading};
+	--cp-accent: #{$accent};
+	--cp-accent-2: #{$accent-2};
+	--cp-muted: #{$muted};
+	--cp-panel: #{$panel};
+	--cp-panel-solid: #{$panel-solid};
+	--cp-border: #{$border};
+	--cp-success: #{$success};
+	--cp-error: #{$error};
+	--cp-emphasis: #{$emphasis};
+	--cp-font-ui: #{$font-ui};
+	--cp-font-display: #{$font-display};
+	--cp-on-accent: #{$bg};
+
+	--r-bold-color: #{$bold};
+	--r-italic-color: #{$emphasis};
+	--r-inline-code-color: #{$inline-code};
+	--r-list-bullet-color: #{$list-marker};
+	--r-code-block-bg: #{$panel-solid};
+	--r-code-block-border: #{$heading};
+}
+
+.reveal {
+	strong,
+	b {
+		color: var(--r-bold-color);
+	}
+
+	em,
+	i,
+	q {
+		color: var(--r-italic-color);
+	}
+
+	blockquote {
+		color: var(--r-italic-color);
+		border-left: 4px solid $heading;
+		background: $panel;
+		box-shadow: 0 0 24px rgba($heading, 0.15);
+	}
+
+	code {
+		color: var(--r-inline-code-color);
+		font-family: var(--cp-font-ui);
+		font-weight: 600;
+	}
+
+	pre {
+		background: var(--r-code-block-bg);
+		border: 1px solid $border;
+		box-shadow:
+			0 8px 32px rgba(0, 0, 0, 0.45),
+			0 0 1px rgba($accent-2, 0.4);
+	}
+
+	ul,
+	ol {
+		li::marker {
+			color: var(--r-list-bullet-color);
+		}
+	}
+
+	h1 {
+		color: $heading;
+		text-shadow: 0 0 28px rgba($heading, 0.45);
+	}
+
+	h2 {
+		color: $keyword;
+	}
+
+	h3 {
+		color: $h3-color;
+	}
+
+	h4 {
+		color: $h4-color;
+	}
+
+	.progress span {
+		background: linear-gradient(90deg, $heading, $accent-2);
+	}
+
+	.controls .navigate-left,
+	.controls .navigate-right,
+	.controls .navigate-up,
+	.controls .navigate-down {
+		color: $accent-2;
+	}
+
+	.slide-number {
+		color: $muted;
+		background-color: $panel;
+	}
+
+	.fragment.highlight-red.visible,
+	.fragment.highlight-current-red.current-fragment {
+		color: var(--cp-error);
+	}
+
+	.fragment.highlight-green.visible,
+	.fragment.highlight-current-green.current-fragment {
+		color: var(--cp-success);
+	}
+
+	.fragment.highlight-blue.visible,
+	.fragment.highlight-current-blue.current-fragment {
+		color: var(--cp-accent-2);
+	}
+}

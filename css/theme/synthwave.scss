@@ -1,0 +1,147 @@
+/**
+ * Synthwave 2077 theme for reveal.js
+ * Colors ported from ~/.config/nvim/colors/synthwave.lua
+ */
+
+@use 'sass:color';
+@use 'template/mixins' as mixins;
+
+// Palette (Synthwave 2077)
+$bg: #101116;
+$fg: #00d4b1;
+$comment: #6766b3;
+$string: #fd7fd9;
+$keyword: #ffe0e0;
+$func: #eeffff;
+$var: #62d4b7;
+$type: #00ff9c;
+$const: #fffd91;
+$selection: #311b92;
+$cursor-line: #24005e;
+$cyan: #08e1d7;
+$magenta: #e215d4;
+$attrib: #ee6dff;
+$panel: #001420;
+
+$systemFontsSansSerif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+	Cantarell, sans-serif;
+$systemFontsMono: 'Share Tech Mono', 'Fira Code', Menlo, Consolas, Monaco, Liberation Mono,
+	monospace;
+
+$mainFont: $systemFontsSansSerif;
+$codeFont: $systemFontsMono;
+
+@use 'template/settings' with (
+	$background: $bg,
+	$background-color: $bg,
+
+	$main-font: $mainFont,
+	$main-font-size: 40px,
+	$main-color: $fg,
+
+	$code-font: $codeFont,
+
+	$heading-color: $magenta,
+	$heading-font: "'Orbitron', #{$systemFontsSansSerif}",
+	$heading-font-weight: 700,
+	$heading-text-transform: none,
+	$heading-letter-spacing: 0.04em,
+
+	$heading1-size: 2.4em,
+	$heading2-size: 1.55em,
+	$heading3-size: 1.25em,
+	$heading4-size: 1em,
+
+	$link-color: $cyan,
+	$link-color-hover: $string,
+
+	$selection-color: $func,
+	$selection-background-color: $selection
+);
+
+@use 'template/theme';
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&display=swap');
+
+@include mixins.light-bg-text-color($bg);
+
+:root {
+	--r-bold-color: #{$const};
+	--r-italic-color: #{$string};
+	--r-inline-code-color: #{$var};
+	--r-list-bullet-color: #{$attrib};
+	--r-code-block-bg: #{$cursor-line};
+	--r-code-block-border: #{$magenta};
+}
+
+.reveal {
+	strong,
+	b {
+		color: var(--r-bold-color);
+	}
+
+	em,
+	i,
+	q {
+		color: var(--r-italic-color);
+	}
+
+	blockquote {
+		color: var(--r-italic-color);
+		border-left: 4px solid $magenta;
+		background: rgba($cursor-line, 0.65);
+		box-shadow: 0 0 24px rgba($magenta, 0.15);
+	}
+
+	code {
+		color: var(--r-inline-code-color);
+	}
+
+	pre {
+		background: var(--r-code-block-bg);
+		border: 1px solid rgba($magenta, 0.35);
+		box-shadow:
+			0 8px 32px rgba(0, 0, 0, 0.45),
+			0 0 1px rgba($cyan, 0.4);
+	}
+
+	ul,
+	ol {
+		li::marker {
+			color: var(--r-list-bullet-color);
+		}
+	}
+
+	h1 {
+		color: $magenta;
+		text-shadow: 0 0 28px rgba($magenta, 0.45);
+	}
+
+	h2 {
+		color: $keyword;
+	}
+
+	h3 {
+		color: $type;
+	}
+
+	h4 {
+		color: $var;
+	}
+
+	.progress span {
+		background: linear-gradient(90deg, $magenta, $cyan);
+	}
+
+	.controls .navigate-left,
+	.controls .navigate-right,
+	.controls .navigate-up,
+	.controls .navigate-down {
+		color: $cyan;
+	}
+
+	.slide-number {
+		color: $comment;
+		background-color: rgba($panel, 0.85);
+	}
+}

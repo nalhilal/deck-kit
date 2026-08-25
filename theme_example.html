@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
+
+		<title>Foundations of AI — Cyberpunk 2077 Theme</title>
+
+		<link rel="stylesheet" href="dist/reset.css" />
+		<link rel="stylesheet" href="dist/reveal.css" />
+		<link
+			id="theme-link"
+			rel="stylesheet"
+			href="dist/theme/cyberpunk-corporate.css"
+		/>
+		<link
+			id="highlight-link"
+			rel="stylesheet"
+			href="dist/plugin/highlight/cyberpunk-corporate.css"
+		/>
+		<script src="js/deck-meta.js"></script>
+		<script src="js/cp2077-config.js"></script>
+		<script src="js/cp2077-theme.js"></script>
+		<link rel="stylesheet" href="css/cp2077-theme-bar.css" />
+	</head>
+	<body class="has-cp2077-theme-bar">
+		<nav class="cp2077-theme-bar" aria-label="Theme preview">
+			<span>Theme</span>
+			<button type="button" data-cp2077-theme="corporate" onclick="cp2077SetTheme('corporate')">
+				Corporate
+			</button>
+			<button type="button" data-cp2077-theme="industrial" onclick="cp2077SetTheme('industrial')">
+				Industrial
+			</button>
+			<button type="button" data-cp2077-theme="synthwave" onclick="cp2077SetTheme('synthwave')">
+				Legacy Synthwave
+			</button>
+		</nav>
+
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Foundations of Artificial Intelligence</h1>
+					<h3>Presented by: Nasser Al-Hilal</h3>
+					<p><small>Cyberpunk 2077 — use the bar above to compare themes</small></p>
+				</section>
+
+				<section>
+					<h2>Typography</h2>
+					<h1>Heading One</h1>
+					<h2>Heading Two</h2>
+					<h3>Heading Three</h3>
+					<h4>Heading Four</h4>
+					<p><small>Rajdhani body · Orbitron headings (in-game UI stack)</small></p>
+				</section>
+
+				<section>
+					<h2>Body &amp; emphasis</h2>
+					<p>
+						Primary text in <strong>bold accent</strong> and
+						<em>italic magenta emphasis</em>.
+					</p>
+					<p>
+						Inline <code>code_sample()</code> uses accent cyan.
+						<a href="https://revealjs.com" target="_blank">Links</a> match the active variant.
+					</p>
+					<blockquote>
+						Blockquotes use magenta emphasis with a holographic panel edge.
+					</blockquote>
+				</section>
+
+				<section>
+					<h2>Lists</h2>
+					<div style="display: flex; gap: 3em; justify-content: center; text-align: left">
+						<ul>
+							<li>Neural networks</li>
+							<li>Machine learning
+								<ul>
+									<li>Supervised</li>
+									<li>Unsupervised</li>
+								</ul>
+							</li>
+							<li>Deep learning</li>
+						</ul>
+						<ol>
+							<li>Define the problem</li>
+							<li>Prepare data</li>
+							<li>Train &amp; evaluate</li>
+							<li>Deploy responsibly</li>
+						</ol>
+					</div>
+					<p><small>Bullet markers use UI magenta</small></p>
+				</section>
+
+				<section>
+					<h2>Syntax highlighting</h2>
+					<pre><code class="language-python" data-trim data-noescape>
+# Palette-aligned Python sample
+def train_model(epochs: int = 10) -> float:
+    """Learn patterns from data."""
+    loss = 1.0
+    for epoch in range(epochs):
+        loss *= 0.95  # 42
+    return loss
+
+MODEL_NAME = "night-city-classifier"
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Palette (corporate)</h2>
+					<table style="font-size: 0.55em; margin: 0 auto">
+						<thead>
+							<tr>
+								<th>Role</th>
+								<th>Hex</th>
+								<th>Sample</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Background</td>
+								<td><code>#0a0a0c</code></td>
+								<td style="background: #0a0a0c; padding: 0 1.5em">&nbsp;</td>
+							</tr>
+							<tr>
+								<td>Corporate cyan</td>
+								<td><code>#25e1ed</code></td>
+								<td style="background: #25e1ed; padding: 0 1.5em">&nbsp;</td>
+							</tr>
+							<tr>
+								<td>UI magenta / H1</td>
+								<td><code>#ed1e79</code></td>
+								<td style="background: #ed1e79; padding: 0 1.5em">&nbsp;</td>
+							</tr>
+							<tr>
+								<td>Delayed yellow</td>
+								<td><code>#ffeb0b</code></td>
+								<td style="background: #ffeb0b; padding: 0 1.5em">&nbsp;</td>
+							</tr>
+							<tr>
+								<td>Success / Fact</td>
+								<td><code>#38deab</code></td>
+								<td style="background: #38deab; padding: 0 1.5em">&nbsp;</td>
+							</tr>
+							<tr>
+								<td>Error / Myth</td>
+								<td><code>#ff4a57</code></td>
+								<td style="background: #ff4a57; padding: 0 1.5em">&nbsp;</td>
+							</tr>
+							<tr>
+								<td>Code block</td>
+								<td><code>#121214</code></td>
+								<td style="background: #121214; padding: 0 1.5em">&nbsp;</td>
+							</tr>
+						</tbody>
+					</table>
+					<p><small>Switch to <strong>Industrial</strong> to swap cyan/yellow primaries</small></p>
+				</section>
+
+				<section>
+					<h2>Optional FX</h2>
+					<p>Glitch, scanlines, HUD chrome, and more — preview (not on by default):</p>
+					<p><a href="theme_effects_preview.html">theme_effects_preview.html</a></p>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="dist/plugin/notes.js"></script>
+		<script src="dist/plugin/markdown.js"></script>
+		<script src="dist/plugin/highlight.js"></script>
+		<script>
+			Reveal.initialize({
+				hash: true,
+				plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+			});
+		</script>
+	</body>
+</html>

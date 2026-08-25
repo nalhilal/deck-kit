@@ -1,0 +1,23 @@
+/**
+ * Annotation layer — above CRT glass; whiteboard slides stay in deck shell.
+ */
+
+#cp2077-annotate-layer {
+	position: fixed;
+	inset: 0;
+	z-index: 75;
+	pointer-events: none;
+	overflow: hidden;
+	border-radius: 3% / 4%;
+}
+
+#cp2077-annotate-layer > * {
+	pointer-events: auto;
+}
+
+body > .tl-container,
+body > .tldraw__editor,
+#cp2077-annotate-layer .tl-container,
+#cp2077-annotate-layer .tldraw__editor {
+	z-index: 75 !important;
+}

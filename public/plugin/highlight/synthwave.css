@@ -1,0 +1,86 @@
+/*
+ * Synthwave 2077 — highlight.js theme
+ * Matched to ~/.config/nvim/colors/synthwave.lua
+ */
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	padding: 0.5em;
+	background: #24005e;
+	color: #62d4b7;
+}
+
+.hljs-comment,
+.hljs-quote,
+.hljs-meta {
+	color: #6766b3;
+	font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-doctag,
+.hljs-section,
+.hljs-type,
+.hljs-name {
+	color: #ffe0e0;
+	font-weight: bold;
+}
+
+.hljs-title,
+.hljs-function,
+.hljs-built_in,
+.hljs-builtin-name {
+	color: #eeffff;
+	font-weight: bold;
+}
+
+.hljs-string,
+.hljs-bullet,
+.hljs-subst,
+.hljs-addition,
+.hljs-regexp,
+.hljs-symbol,
+.hljs-template-tag,
+.hljs-template-variable {
+	color: #fd7fd9;
+}
+
+.hljs-number,
+.hljs-attr,
+.hljs-variable,
+.hljs-params,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-link {
+	color: #fffd91;
+}
+
+.hljs-attribute,
+.hljs-property,
+.hljs-tag {
+	color: #ee6dff;
+}
+
+.hljs-class .hljs-title,
+.hljs-title.class_ {
+	color: #00ff9c;
+	font-weight: bold;
+}
+
+.hljs-deletion,
+.hljs-formula {
+	color: #ff0000;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+	color: #fd7fd9;
+}
+
+.hljs-strong {
+	font-weight: bold;
+	color: #fffd91;
+}
