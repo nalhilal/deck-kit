@@ -5,6 +5,8 @@
   var bridgeDeps = null;
   var annotationDrawModeUnsub = null;
 
+  var alignedWhenDrawStarted = false;
+
   function isAnnotationEditingMode() {
     return (
       window.PlatformAnnotationTools &&
@@ -32,16 +34,23 @@
   }
 
   function shouldResyncOnDrawExit() {
-    return isAlignedWithInstructor();
+    if (bridgeDeps.isFollowing && !bridgeDeps.isFollowing()) {
+      return false;
+    }
+    return alignedWhenDrawStarted || !!bridgeDeps.getPendingInstructorDeckState();
   }
 
   function onAnnotationDrawingModeChange(isOn) {
-    if (isOn) return;
+    if (isOn) {
+      alignedWhenDrawStarted = isAlignedWithInstructor();
+      return;
+    }
     var pending = bridgeDeps.getPendingInstructorDeckState();
     if (shouldResyncOnDrawExit() && pending) {
       PlatformBridgeDeckSync.applyDeckState(pending, { force: true });
       bridgeDeps.setPendingInstructorDeckState(null);
     }
+    alignedWhenDrawStarted = false;
   }
 
   function resyncInstructorDeckAfterDrawExit() {

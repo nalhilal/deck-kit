@@ -325,6 +325,7 @@
   }
 
   function setFollowing(follow) {
+    followInstructor = follow !== false;
     PlatformBridgeDeckSync.setFollowing(follow);
   }
 
@@ -375,6 +376,9 @@
       },
       shouldApplyDeckState: shouldApplyDeckState,
       isAnnotationEditingMode: isAnnotationEditingMode,
+      isFollowing: function () {
+        return followInstructor;
+      },
       debounce: debounce,
       getSessionId: function () {
         return sessionId;

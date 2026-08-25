@@ -201,9 +201,8 @@
     var keys = enumerateSlideKeys();
     var index = resolveKeyIndex(keys, editingSlideKey, deckSlideKey);
     var instructorKey = resolveInstructorSlideKey();
-    var instructorLearnerPosition = instructorKey
-      ? learnerSlidePosition(instructorKey)
-      : '';
+    var positionKey = instructorKey || deckSlideKey;
+    var instructorLearnerPosition = positionKey ? learnerSlidePosition(positionKey) : '';
     var outOfSync =
       instructorKey && editingSlideKey
         ? editingSlideKey !== instructorKey

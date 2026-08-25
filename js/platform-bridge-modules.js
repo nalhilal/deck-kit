@@ -24,6 +24,7 @@
       },
       getPendingInstructorDeckState: ctx.getPendingInstructorDeckState,
       setPendingInstructorDeckState: ctx.setPendingInstructorDeckState,
+      isFollowing: ctx.isFollowing,
     });
 
     PlatformBridgeHints.init({
